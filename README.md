@@ -42,7 +42,7 @@
 
 ---
 
-**Made with 💜 by Ash**
+**Made with 💜 by [@Ash1421](https://github.com/Ash1421)**
 
 ⭐ **Star this repo if you like it!** ⭐
 
