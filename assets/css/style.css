@@ -17,6 +17,10 @@
 	--text-muted: #64748b;
 	--border: #2d2926;
 	--divider: rgba(255, 255, 255, 0.05);
+	--icon-fill: #ffffff;
+	--state-hover: rgba(255, 255, 255, 0.07);
+	--menu-selected-bg: #3b1668;
+	--menu-selected-text: #f5f0fa;
 	--elev-1: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
 	--elev-2: 0 3px 10px rgba(0, 0, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.4);
 	--elev-3: 0 8px 28px rgba(0, 0, 0, 0.65), 0 4px 8px rgba(0, 0, 0, 0.45);
@@ -28,6 +32,58 @@
 	--font: "Inter", system-ui, -apple-system, sans-serif;
 	--mono: "JetBrains Mono", "Fira Code", monospace;
 	--t: 0.2s ease;
+}
+
+/* ── Light scheme ─────────────────────────────────────────── */
+:root[data-appearance="light"] {
+	--bg: #faf9f9;
+	--surface: #ffffff;
+	--surface-2: #f2efed;
+	--surface-3: #e7e2df;
+	--accent: #6829b1;
+	--accent-h: #7b32cc;
+	--accent-dim: #ece1f9;
+	--accent-glow: rgba(104, 41, 177, 0.12);
+	--text: #1c1917;
+	--text-dim: #5b5651;
+	--text-muted: #8a8480;
+	--border: #e7e2df;
+	--divider: rgba(0, 0, 0, 0.09);
+	--icon-fill: #43188d;
+	--state-hover: rgba(28, 25, 23, 0.06);
+	--menu-selected-bg: #ece1f9;
+	--menu-selected-text: #43188d;
+	--elev-1: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+	--elev-2: 0 3px 10px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+	--elev-3: 0 8px 28px rgba(0, 0, 0, 0.18), 0 4px 8px rgba(0, 0, 0, 0.1);
+	--elev-accent: 0 3px 14px rgba(104, 41, 177, 0.3);
+}
+
+/* No-JS fallback: follow OS when no explicit appearance is resolved */
+@media (prefers-color-scheme: light) {
+	:root[data-theme="system"] {
+		--bg: #faf9f9;
+		--surface: #ffffff;
+		--surface-2: #f2efed;
+		--surface-3: #e7e2df;
+		--accent: #6829b1;
+		--accent-h: #7b32cc;
+		--accent-dim: #ece1f9;
+		--accent-glow: rgba(104, 41, 177, 0.12);
+		--text: #1c1917;
+		--text-dim: #5b5651;
+		--text-muted: #8a8480;
+		--border: #e7e2df;
+		--divider: rgba(0, 0, 0, 0.09);
+		--icon-fill: #43188d;
+		--state-hover: rgba(28, 25, 23, 0.06);
+		--menu-selected-bg: #ece1f9;
+		--menu-selected-text: #43188d;
+		--elev-1: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+		--elev-2: 0 3px 10px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+		--elev-3: 0 8px 28px rgba(0, 0, 0, 0.18), 0 4px 8px rgba(0, 0, 0, 0.1);
+		--elev-accent: 0 3px 14px rgba(104, 41, 177, 0.3);
+	}
 }
 
 /* ── Reset ─────────────────────────────────────────────────── */
@@ -220,7 +276,12 @@ a {
 .card-icon svg {
 	width: 22px;
 	height: 22px;
-	fill: #fff;
+	fill: var(--icon-fill);
+}
+
+/* Inline-styled brand SVGs (e.g. MyAnimeList) follow the theme */
+.card-icon svg[style] {
+	fill: var(--icon-fill) !important;
 }
 
 /* Card body */
@@ -461,6 +522,154 @@ a {
 }
 
 /* =========================================================
+   THEME SWITCHER — Material 3 (dark / light / system)
+   ========================================================= */
+.theme-switcher {
+	position: fixed;
+	top: 16px;
+	right: 16px;
+	z-index: 100;
+}
+
+.theme-trigger {
+	width: 40px;
+	height: 40px;
+	border: none;
+	border-radius: 12px;
+	background: var(--surface-2);
+	color: var(--text);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	box-shadow: var(--elev-1);
+	transition:
+		background var(--t),
+		color var(--t),
+		box-shadow var(--t),
+		transform var(--t);
+}
+
+.theme-trigger:hover {
+	background: var(--surface-3);
+	box-shadow: var(--elev-2);
+}
+
+.theme-trigger:active {
+	transform: scale(0.94);
+}
+
+.theme-trigger:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+.theme-trigger svg {
+	width: 20px;
+	height: 20px;
+	fill: currentColor;
+}
+
+/* Trigger shows the *active* theme: sun in light, moon in dark */
+.theme-trigger .icon-sun {
+	display: none;
+}
+
+html[data-appearance="light"] .theme-trigger .icon-moon {
+	display: none;
+}
+
+html[data-appearance="light"] .theme-trigger .icon-sun {
+	display: block;
+}
+
+/* ── Dropdown menu ──────────────────────────────────────── */
+.theme-menu {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	min-width: 196px;
+	padding: 8px;
+	background: var(--surface-2);
+	border: 1px solid var(--border);
+	border-radius: 12px;
+	box-shadow: var(--elev-3);
+	display: none;
+	transform-origin: top right;
+}
+
+.theme-switcher[data-open="true"] .theme-menu {
+	display: block;
+	animation: menu-in 0.18s ease;
+}
+
+@keyframes menu-in {
+	from {
+		opacity: 0;
+		transform: translateY(-6px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+.theme-option {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	padding: 12px 14px;
+	border: none;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--text);
+	font-family: var(--font);
+	font-size: 0.875rem;
+	font-weight: 500;
+	text-align: left;
+	cursor: pointer;
+	transition:
+		background var(--t),
+		color var(--t);
+}
+
+.theme-option:hover {
+	background: var(--state-hover);
+}
+
+.theme-option:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: -2px;
+}
+
+.theme-option svg {
+	width: 18px;
+	height: 18px;
+	fill: currentColor;
+	flex-shrink: 0;
+}
+
+.theme-option .option-label {
+	flex: 1;
+}
+
+.theme-option .check {
+	width: 16px;
+	height: 16px;
+	opacity: 0;
+}
+
+.theme-option[aria-checked="true"] {
+	background: var(--menu-selected-bg);
+	color: var(--menu-selected-text);
+}
+
+.theme-option[aria-checked="true"] .check {
+	opacity: 1;
+}
+
+/* =========================================================
    FOOTER
    ========================================================= */
 .site-footer {
@@ -480,8 +689,13 @@ a {
    RESPONSIVE
    ========================================================= */
 @media (max-width: 680px) {
+	.theme-switcher {
+		top: 12px;
+		right: 12px;
+	}
+
 	body {
-		padding: 0 12px 48px;
+		padding: 0 12px calc(72px + env(safe-area-inset-bottom));
 	}
 
 	.banner {
