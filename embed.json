@@ -1,0 +1,63 @@
+{
+	"component": {
+		"type": 17,
+		"accent_color": 9147414,
+		"components": [
+			{
+				"type": 9,
+				"components": [
+					{
+						"type": 10,
+						"content": "# Ash1421\nPassionate about gaming, open-source, DevOps, FOSS, and cloud computing. Interested in ML and full-stack development."
+					}
+				],
+				"accessory": {
+					"type": 11,
+					"media": {
+						"url": "https://ash1421.com/assets/webp/profile-picture.webp"
+					},
+					"description": "Ash1421's Profile Picture"
+				}
+			},
+			{
+				"type": 14,
+				"spacing": 1
+			},
+			{
+				"type": 1,
+				"components": [
+					{
+						"type": 2,
+						"style": 5,
+						"label": "Midnight Ash",
+						"url": "https://theme.ash1421.com/"
+					},
+					{
+						"type": 2,
+						"style": 5,
+						"label": "GitHub",
+						"url": "https://github.com/Ash1421"
+					},
+					{
+						"type": 2,
+						"style": 5,
+						"label": "Discord Server",
+						"url": "https://rb.ash1421.com/discord"
+					},
+					{
+						"type": 2,
+						"style": 5,
+						"label": "Donate",
+						"url": "https://kofi.ash1421.com"
+					},
+					{
+						"type": 2,
+						"style": 5,
+						"label": "Website",
+						"url": "https://ash1421.com"
+					}
+				]
+			}
+		]
+	}
+}
