@@ -24,6 +24,10 @@
 				"spacing": 1
 			},
 			{
+				"type": 10,
+				"content": "**Midnight-Ash theme URL** — hover the block and hit copy:\n```\nhttps://theme.ash1421.com/midnight-ash.css\n```"
+			},
+			{
 				"type": 1,
 				"components": [
 					{
